@@ -1,0 +1,10 @@
+.tile {
+    position: absolute;
+    background-color: blueviolet;
+
+    border: 1px black solid;
+}
+
+.scene {
+    position: relative;
+}
