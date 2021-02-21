@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
-import { render } from 'react-dom'
-import styled from 'styled-components';
+import React, {useEffect, useState} from 'react'
+import tiletypes from './data/tiletypes'
 
-function Tile({onClick, isWall, ...props}) {
+function Tile({onClick, ...props}) {
 
-  const color = isWall ? 'gray': 'purple'
+  const color = tiletypes[props.type].color
+
   const style = {
     top: props.y * props.scale,
     left: props.x * props.scale,
@@ -20,69 +20,100 @@ function Tile({onClick, isWall, ...props}) {
   )
 }
 
-function Scene({grid, walls, ...props}) {
-
-  const alert = (id) => {
-    console.log(id)
-  }
+function Scene({viewportGrid, updatePosition, position, ...props}) {
 
   return (
-    <>
+    <div className="scene">
     {
-    grid.map( (tile, index) => {
+    viewportGrid.map( (tile, index) => {
       return(
         <Tile 
         x={tile.x}
         y={tile.y}
-        isWall={walls.includes(index)}
+        type={tile.type}
         key={index} 
-        onClick={() => alert(tile)}
-        scale={props.scale}/>
+        onClick={() => updatePosition(tile)}
+        scale={props.scale}
+        />
       )
     })
     }
-    </>
+    </div>
   )
 }
 
 function Game({config}) {
+  
+  const [sceneData, setSceneData] = useState(config.initScene)
+  const [position, setPosition] = useState({x: 1, y: 1})
+  const [velocity, setVelocity] = useState({x: 0, y: 0})
 
-  const [scale, setScale] = useState(config.scale)
+  useEffect(() => {
+    console.log(`position: ${position.x}, ${position.y}`);
+  })
 
-  const totalTiles =  Math.pow(config.size, 2)
+  const velocityMap = {
+    x: {
+      '0': -1,
+      '1': 0,
+      '2': 1
+    },
+    y: {
+      '0': -1,
+      '1': 0,
+      '2': 1
+    }
+  }
 
-  const grid = new Array(totalTiles).fill({x:0, y:0}, 0, totalTiles)
+  const getTileType = (position) => {
+    const tileData = sceneData.find(tile => {
+      return (tile.x == position.x && tile.y == position.y)
+    })
+    return tileData.type
+  }
 
-  const gridWithValues = grid.map( (item, index) => {
+  // map the size of the current viewport to an array
+  const viewportTiles =  Math.pow(config.viewportSize, 2)
+  let viewportTemplate = new Array(viewportTiles).fill({x: 0, y:0}, 0, viewportTiles)
+
+  let viewportGrid = viewportTemplate.map( (tile, index) => {
+    let xValue = index%config.viewportSize
+    let yValue = Math.floor(index/config.viewportSize)
+
+    let avatarX = xValue + position.x
+    let avatarY = yValue + position.y
+    
     return (
       {
-        x: index%config.size, 
-        y: Math.floor(index/config.size)
+        x: xValue, 
+        y: yValue,
+        type: getTileType({x: avatarX, y: avatarY})
       }
     )
   })
 
-  const Container = styled.div`
-    display: flex;
-    min-width: 20em;
-    min-height: 80em;
-    border: 1px palevioletred solid;
-  `;
+  const updatePosition = (clickedPosition) => {
+    let velocity = getVelocity( clickedPosition )
+    setPosition({
+      x: position.x + velocity.x,
+      y: position.y + velocity.y
+    })
+  }
 
-  const Sticky = styled.div`
-    position: sticky;
-    top: 20px;
-    min-width: 5em;
-    max-height: 10em;
-    background: ${props => props.primary ? "papayawhip" : "palevioletred"};
-  `;
+  const getVelocity = (position) => {
+    return {
+      x: velocityMap.x[position.x],
+      y: velocityMap.y[position.y]
+    }
+  }
 
   return (
     <>
-      <Scene grid={gridWithValues} scale={scale} walls={config.initWalls}/>
-      <Container>
-        <Sticky primary/>  
-      </Container>
+    <Scene 
+      viewportGrid={viewportGrid}
+      scale={config.scale} 
+      updatePosition={updatePosition}
+    />
     </>
   )
 }
