@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import tiletypes from './data/tiletypes'
+import velocityMap from './data/velocityMap'
 
 function Tile({onClick, ...props}) {
 
@@ -47,19 +48,6 @@ function Game({config}) {
   const [sceneData, setSceneData] = useState(config.initScene)
   const [position, setPosition] = useState({x: 1, y: 1})
   const [velocity, setVelocity] = useState({x: 0, y: 0})
-
-  const velocityMap = {
-    x: {
-      '0': -1,
-      '1': 0,
-      '2': 1
-    },
-    y: {
-      '0': -1,
-      '1': 0,
-      '2': 1
-    }
-  }
 
   const getTileType = (position) => {
     const tileData = sceneData.find(tile => {
