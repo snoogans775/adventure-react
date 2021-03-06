@@ -1,5 +1,5 @@
 # Adventure-react
-This is a project intended to implement a rudimentary adventure game mechanics in React.
+A rudimentary adventure game engine in React.
 
 ## What is an adventure game?
 The primary aim of this code is to create a bare-bones, highly minimalistic interpretation of an adventure game. The game Advenure for the Atari 2600 would be a good analogue.
