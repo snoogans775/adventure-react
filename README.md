@@ -11,7 +11,7 @@ index.js       - React DOM mounting file
 SceneEditor.js - Build tile-based maps
 - /src
 - - /data
-All data models to be used by the game including tile definitions are kept here.
+- - - All data models to be used by the game including tile definitions are kept here.
 - - /style
-Necessary CSS to render the game in browser.
+- - - Necessary CSS to render the game in browser.
 - - 
