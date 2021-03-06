@@ -48,10 +48,6 @@ function Game({config}) {
   const [position, setPosition] = useState({x: 1, y: 1})
   const [velocity, setVelocity] = useState({x: 0, y: 0})
 
-  useEffect(() => {
-    console.log(`position: ${position.x}, ${position.y}`);
-  })
-
   const velocityMap = {
     x: {
       '0': -1,
@@ -82,7 +78,7 @@ function Game({config}) {
 
     let avatarX = xValue + position.x
     let avatarY = yValue + position.y
-    
+
     return (
       {
         x: xValue, 
@@ -92,8 +88,9 @@ function Game({config}) {
     )
   })
 
-  const updatePosition = (clickedPosition) => {
-    let velocity = getVelocity( clickedPosition )
+  const updatePosition = (clickedTile) => {
+    if( tiletypes[clickedTile.type].solid == true ) return;
+    let velocity = getVelocity( clickedTile )
     setPosition({
       x: position.x + velocity.x,
       y: position.y + velocity.y
