@@ -1,4 +1,8 @@
-module.exports = [
+module.exports = {
+  "attributes": {
+    "size": 9
+  },
+  "sceneData": [
     {
       "x": 0,
       "y": 0,
@@ -405,3 +409,4 @@ module.exports = [
       "type": "wall"
     }
   ]
+}
