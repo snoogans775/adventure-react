@@ -15,3 +15,15 @@
 .scene {
     position: relative;
 }
+
+.type-selector {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    border: 2px black solid;
+}
+
+.type-selector > * {
+    padding: 2em;
+}
