@@ -1,8 +1,35 @@
 import React, {useEffect, useState} from 'react'
+import tileTypes from './data/tiletypes'
+import sceneTemplate from './utils/sceneTemplate'
 
-function Tile({onClick, isWall, ...props}) {
+function TypeSelector({selector, updateSelector, ...props}) {
 
-  const color = isWall ? 'gray': 'purple'
+  const allTileTypes = Object.keys( tileTypes )
+
+  const handleClick = e => updateSelector(e.target.name)
+
+  return (
+    <div className='type-selector'>
+      {allTileTypes.map( (type, index) => {
+        return (
+          <button 
+            className='type-selector-item' 
+            key={index}
+            name={type}
+            onClick={handleClick}
+          >
+            {type}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+function Tile({onClick, ...props}) {
+
+  const color = tileTypes[props.type].color
+
   const style = {
     top: props.y * props.scale,
     left: props.x * props.scale,
@@ -18,24 +45,21 @@ function Tile({onClick, isWall, ...props}) {
   )
 }
 
-function Scene({grid, walls, updateWalls, ...props}) {
-
-  const checkWalls = (tile) => {
-    return walls.filter( wall =>  wall.x == tile.x && wall.y == tile.y ).length > 0
-  }
+function Scene({sceneGrid, updateTile, ...props}) {
 
   return (
     <div className="scene">
     {
-    grid.map( (tile, index) => {
+    sceneGrid.map( (tile, index) => {
       return(
         <Tile 
         x={tile.x}
         y={tile.y}
-        isWall={checkWalls(tile)}
+        type={tile.type}
         key={index} 
-        onClick={() => updateWalls(tile)}
-        scale={props.scale}/>
+        onClick={() => updateTile(tile, index)}
+        scale={props.scale}
+        />
       )
     })
     }
@@ -44,52 +68,36 @@ function Scene({grid, walls, updateWalls, ...props}) {
 }
 
 function Game({config}) {
+  
+  let loadedScene = config.initScene ? config.initScene.sceneData : sceneTemplate()
+  let loadedScale = config.scale ? config.scale : 1;
+  const [sceneData, setSceneData] = useState( loadedScene )
+  const [scale, setScale] = useState( loadedScale )
+  const [selector, setSelector] = useState( 'air' )
 
-  const [scale, setScale] = useState(config.scale)
-  const [walls, setWalls] = useState([])
+  useEffect(() => {
+    
+  })
 
-  const totalTiles =  Math.pow(config.size, 2)
-  const grid = new Array(totalTiles).fill({x:0, y:0}, 0, totalTiles)
-
-  const updateWalls = (tile) => {
-    console.log(tile)
-    setWalls(prevWalls => [...prevWalls, {
-      x: tile.x, y: tile.y
-    }]
-    )
+  const updateTile = (tile, index) => {
+    let newScene = [...sceneData]
+    let newTile = {...tile, type: selector}
+    newScene[index] = newTile
+    setSceneData(newScene)
   }
 
-  const gridWithValues = grid.map( (item, index) => {
-    return (
-      {
-        x: index%config.size, 
-        y: Math.floor(index/config.size)
-      }
-    )
-  })
-
-  const gridWithTileTypes = gridWithValues.map( tile => {
-    let isWall = walls.filter( wall => {
-      return (wall.x == tile.x && wall.y == tile.y)
-    }) 
-    return ({
-      x: tile.x,
-      y: tile.y,
-      type: isWall.length > 0 ? 'wall' : 'air'
-    })
-  })
-
-  console.log(gridWithTileTypes)
+  const updateSelector = (name) => {
+    setSelector(name)
+  } 
 
   return (
     <>
     <Scene 
-      grid={gridWithValues} 
+      sceneGrid={sceneData}
       scale={scale} 
-      walls={walls} 
-      updateWalls={updateWalls}
-    />
-    {/* <button onClick={moveRight}>Move right</button> */}
+      updateTile={updateTile}
+      />
+    <TypeSelector selector={selector} updateSelector={updateSelector}/>
     </>
   )
 }
