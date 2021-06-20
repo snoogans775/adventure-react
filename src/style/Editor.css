@@ -1,0 +1,14 @@
+@import './Game.css';
+
+.type-selector {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    border: 2px black solid;
+    margin: 2em;
+}
+.type-selector > * {
+    padding: 2em;
+    width: 100%;
+}

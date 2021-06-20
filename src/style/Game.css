@@ -1,29 +1,24 @@
 #root {
-    display: flex;
-    justify-content: start;
-    flex-direction: column;
-    width: 100%;
+
 }
-
-.tile {
-    position: absolute;
-    background-color: blueviolet;
-
-    border: 1px black solid;
+.ui-container {
+    display: flex;
 }
 
 .scene {
     position: relative;
+    width: 10em;
 }
-
-.type-selector {
+.tile {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 60px;
-    border: 2px black solid;
+    background-color: blueviolet;
+    border: 1px black solid;
 }
-
-.type-selector > * {
-    padding: 2em;
+.terminal {
+    font-family: monospace;
+    background-color: #888;
+    overflow: scroll;
+    color: #EEE;
+    height: 5em;
+    width: 20em;
 }
