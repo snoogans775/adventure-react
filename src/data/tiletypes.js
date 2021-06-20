@@ -6,5 +6,9 @@ module.exports = {
     "air": {
         "color": "papayawhip",
         "solid": false
+    },
+    "person": {
+        "color": "blue",
+        "solid": true
     }
 }
