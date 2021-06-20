@@ -5,13 +5,21 @@ import 'style/Game.css'
 import Game from './Game'
 import SceneEditor from './SceneEditor'
 
-import scene from './data/scene1.js'
+import scene from './data/scenes/scene1.json'
 
 
-const config = {
-    viewportSize: 3,
+const editorConfig = {
+    sceneSize: 9,
+    viewportSize: 9,
     initScene: scene,
     scale: 60
 };
 
-render(<Game config={config} />, document.getElementById('root'), () => console.log('loaded'))
+const gameConfig = {
+    sceneSize: 9,
+    viewportSize: 3,
+    scene: scene,
+    scale: 60
+};
+
+render(<Game config={gameConfig} />, document.getElementById('root'), () => console.log('Engine Starting...'))
