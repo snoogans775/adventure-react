@@ -1,0 +1,15 @@
+{
+  "name": "adventure-api",
+  "version": "1.0.0",
+  "description": "API for network and local tasks required by adventure-react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Fredericks",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ps": "^1.0.0"
+  }
+}
