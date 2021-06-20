@@ -2,6 +2,17 @@ import React, {useEffect, useState} from 'react'
 import tileTypes from './data/tiletypes'
 import sceneTemplate from './utils/sceneTemplate'
 
+async function exportButton(scene) {
+  const response = await fetch('http://127.0.0.1:4444/export', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(scene)
+  })
+
+  return response.json();
+}
+
 function TypeSelector({selector, updateSelector, ...props}) {
 
   const allTileTypes = Object.keys( tileTypes )
