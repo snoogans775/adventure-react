@@ -1,20 +1,24 @@
 import React, {useState, useEffect} from 'react';
 
-export default function Terminal({onClickTile, sceneTile, ...props}) {
-    const [messages, setMessages] = useState([])
+export default function Terminal({getTileType, clickedTile, ...props}) {
+    const [messages, setMessages] = useState([]);
 
     useEffect( () => {
-        setMessages([onClickTile(sceneTile), ...messages])
+        if(clickedTile !== undefined) {
+            console.log( getTileType(clickedTile) );
+            let nextMessage = getTileType(clickedTile);
+            setMessages([nextMessage, ...messages]);
+        }
     }, [clickedTile])
 
     function formattedMessages() {
         const slicedMessages = messages.length > 3
-        ? messages.slice(messages.length - 3, messages.length)
-        : messages
+        ? messages.slice(0, 3)
+        : messages;
 
-        return messages.map( (msg, idx) => {
+        return slicedMessages.map( (msg, idx) => {
             return <li key={idx}>{msg}</li>
-        })
+        });
     }
 
     return (
@@ -23,5 +27,5 @@ export default function Terminal({onClickTile, sceneTile, ...props}) {
                 {formattedMessages()}
             </ol>
         </div>
-    )
+    );
 }
