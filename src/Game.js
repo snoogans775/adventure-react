@@ -46,41 +46,52 @@ function Scene({ viewport, updatePosition, scale }) {
 
 function Game({ config }) {
 
-  const [sceneData, setSceneData] = useState(config.scene.sceneData)
-  const [viewportTemplate, setViewportTemplate] = useState([])
-  const [position, setPosition] = useState({ x: 1, y: 1 })
-  const [clickedTile, setClickedTile] = useState({ x: 1, y: 1 })
+  const [sceneData, setSceneData] = useState(config.scene.sceneData);
+  const [position, setPosition] = useState({ x: 1, y: 1 });
+  const [gameState, setGameState] = useState([]);
+  const [clickedTile, setClickedTile] = useState({ x: 1, y: 1 });
 
-  useEffect( () => {
-    // map the size of the current viewport to an array
-    const viewportTiles = Math.pow(config.viewportSize, 2)
-    setViewportTemplate( new Array(viewportTiles).fill({ x: 0, y: 0 }, 0, viewportTiles) )
+  useEffect(() => {
+    //map all of the tiles to obects in the gameState
+    setGameState(sceneData.map(sceneTile => {
+      return {
+        x: sceneTile.x,
+        y: sceneTile.y,
+        state: sceneTile.state ? sceneTile.state.default : {}
+      }
+    }));
   }, [sceneData])
 
   const getTile = (position) => {
     const tileData = sceneData.find(tile => {
-      return (tile.x == position.x && tile.y == position.y)
+      return (tile.x == position.x && tile.y == position.y);
     })
-    return tileData
+    return tileData;
   }
 
   //FIXME: Extract this to function
-  let viewport = viewportTemplate.map((tile, index) => {
-    let xValue = index % config.viewportSize
-    let yValue = Math.floor(index / config.viewportSize)
+  function getViewportTiles(position) {
+    // map the size of the current viewport to an array
+    const viewportTiles = Math.pow(config.viewportSize, 2);
+    const viewportTemplate = new Array(viewportTiles).fill({ x: 0, y: 0 }, 0, viewportTiles);
+    const viewport = viewportTemplate.map((tile, index) => {
+      let xValue = index % config.viewportSize;
+      let yValue = Math.floor(index / config.viewportSize);
 
-    // FIXME: this only works for 3x3 grids
-    let viewportCenter = {
-      x: xValue + position.x - 1,  
-      y: yValue + position.y - 1
-    }
+      // FIXME: this only works for 3x3 grids
+      let viewportCenter = {
+        x: xValue + position.x - 1,
+        y: yValue + position.y - 1
+      }
 
-    return ({
-      x: xValue,
-      y: yValue,
-      type: getTile({ x: viewportCenter.x, y: viewportCenter.y }).type
+      return ({
+        x: xValue,
+        y: yValue,
+        type: getTile({ x: viewportCenter.x, y: viewportCenter.y }).type
+      })
     })
-  })
+    return viewport;
+  }
 
   const updatePosition = (uiTile) => {
     //Calculate next position in scene based on clicked ui tile
@@ -105,13 +116,14 @@ function Game({ config }) {
   return (
     <GameContainer>
       <Scene
-        viewport={viewport}
+        viewport={getViewportTiles(position)}
         scale={config.scale}
         updatePosition={updatePosition}
       />
       <Terminal
         clickedTile={clickedTile}
         getTile={getTile}
+        gameState={gameState}
       />
     </GameContainer>
   )
