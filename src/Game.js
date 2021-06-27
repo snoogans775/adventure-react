@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import UiContainer from './components/UiContainer';
+import GameContainer from './components/GameContainer';
 import Terminal from './components/terminal';
 import tiletypes from './data/tiletypes';
 import velocityMap from './data/velocityMap';
@@ -50,7 +50,6 @@ function Game({ config }) {
   const [viewportTemplate, setViewportTemplate] = useState([])
   const [position, setPosition] = useState({ x: 1, y: 1 })
   const [clickedTile, setClickedTile] = useState({ x: 1, y: 1 })
-  const [velocity, setVelocity] = useState({ x: 0, y: 0 })
 
   useEffect( () => {
     // map the size of the current viewport to an array
@@ -58,13 +57,14 @@ function Game({ config }) {
     setViewportTemplate( new Array(viewportTiles).fill({ x: 0, y: 0 }, 0, viewportTiles) )
   }, [sceneData])
 
-  const getTileType = (position) => {
+  const getTile = (position) => {
     const tileData = sceneData.find(tile => {
       return (tile.x == position.x && tile.y == position.y)
     })
-    return tileData.type
+    return tileData
   }
 
+  //FIXME: Extract this to function
   let viewport = viewportTemplate.map((tile, index) => {
     let xValue = index % config.viewportSize
     let yValue = Math.floor(index / config.viewportSize)
@@ -78,7 +78,7 @@ function Game({ config }) {
     return ({
       x: xValue,
       y: yValue,
-      type: getTileType({ x: viewportCenter.x, y: viewportCenter.y })
+      type: getTile({ x: viewportCenter.x, y: viewportCenter.y }).type
     })
   })
 
@@ -102,12 +102,8 @@ function Game({ config }) {
     }
   }
 
-  const onClickTile = (sceneTile) => {
-    
-  }
-
   return (
-    <UiContainer>
+    <GameContainer>
       <Scene
         viewport={viewport}
         scale={config.scale}
@@ -115,9 +111,9 @@ function Game({ config }) {
       />
       <Terminal
         clickedTile={clickedTile}
-        getTileType={getTileType}
+        getTile={getTile}
       />
-    </UiContainer>
+    </GameContainer>
   )
 }
 
