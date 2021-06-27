@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom'
-import 'style/Game.css'
+import 'style/Main.css'
 
 import Game from './Game'
 import SceneEditor from './SceneEditor'
 
-import scene from './data/scenes/scene1.json'
+import scene from './data/scenes/roomWithPerson.json'
 
 
 const editorConfig = {
