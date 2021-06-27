@@ -8,7 +8,11 @@ module.exports = {
         "solid": false
     },
     "person": {
-        "color": "blue",
+        "color": "lightblue",
         "solid": true
+    },
+    "sandwich": {
+        "color": "coral",
+        "solid": false
     }
 }
