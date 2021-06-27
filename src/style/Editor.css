@@ -1,14 +1,17 @@
-@import './Game.css';
-
-.type-selector {
+.ui-container {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 50px;
+    right: 50px;
+}
+.type-selector {
     width: 80px;
     border: 2px black solid;
-    margin: 2em;
 }
 .type-selector > * {
     padding: 2em;
     width: 100%;
+}
+.export-btn {
+    background: black;
+    color:antiquewhite;
 }
