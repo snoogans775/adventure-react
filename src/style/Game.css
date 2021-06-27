@@ -1,10 +1,10 @@
 #root {
 
 }
-.ui-container {
+.game-container {
     display: flex;
+    padding: 2em;
 }
-
 .scene {
     position: relative;
     width: 10em;
