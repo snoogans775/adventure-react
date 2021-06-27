@@ -69,7 +69,6 @@ function Game({ config }) {
     return tileData;
   }
 
-  //FIXME: Extract this to function
   function getViewportTiles(position) {
     // map the size of the current viewport to an array
     const viewportTiles = Math.pow(config.viewportSize, 2);
