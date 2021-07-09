@@ -2,6 +2,14 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devServer : {
+    historyApiFallback: true,
+    contentBase: path.join(__dirname, 'src'),
+    compress: true,
+    host: '0.0.0.0',
+    port: 3000
+  },
+  devtool : 'source-map',
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'build'),

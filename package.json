@@ -7,6 +7,7 @@
     "@babel/core": "^7.12.16",
     "@babel/preset-env": "^7.12.16",
     "@babel/preset-react": "^7.12.13",
+    "@hookstate/core": "^3.0.8",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
     "html-webpack-plugin": "^4.5.1",
@@ -16,7 +17,7 @@
     "styled-components": "^5.2.3",
     "webpack": "^5.13.0",
     "webpack-cli": "^4.3.1",
-    "webpack-dev-server": "^3.11.1"
+    "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
     "start": "webpack serve",
