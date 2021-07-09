@@ -203,20 +203,22 @@
             "x": 3,
             "y": 4,
             "type": "person",
+            "id": "oldMan",
             "state": {
-                "hungry": {
-                    "responses": [
-                        "An elderly man is slumped over. He looks hungry."
-                    ]
-                },
-                "fed": {
-                    "responses": [
-                        "The man is holding the sandwich to his chest. A bite has been eaten from the corner."
-                    ]
-                },
                 "default": {
                     "responses": [
-                        "An elderly man is slumped over."
+                        "An elderly man is slumped over.",
+                        "He looks hungry.",
+                        "Maybe you should help him?",
+                        "His skin grips his bones tightly.",
+                        "His eyes are vacant."
+                    ]
+                },
+                "interact": {
+                    "responses": [
+                        "The man is holding the sandwich to his chest.",
+                        "His jaw moves up and down in a deliberate rhythm.",
+                        "He looks happy."
                     ]
                 }
             }
@@ -365,10 +367,16 @@
             "x": 5,
             "y": 7,
             "type": "sandwich",
+            "id": "sandwich",
             "state": {
                 "default": {
                     "responses": [
                         "A sandwich is on the ground."
+                    ]
+                },
+                "interact": {
+                    "responses": [
+                        "There are some crumbs on the ground."
                     ]
                 }
             }
