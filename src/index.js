@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from 'react-dom'
 import 'style/Main.css'
 
-import Game from './Game'
-import SceneEditor from './SceneEditor'
+import Game from './components/game/Game'
+import SceneEditor from './components/editor/SceneEditor'
 
 import scene from './data/scenes/roomWithPerson.json'
 
