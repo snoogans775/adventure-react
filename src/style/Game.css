@@ -1,7 +1,11 @@
-#root {
-
+body {
+    animation-name: backgroundColorPalette;
+    animation-duration: 30s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 .game-container {
+    background-color: darkgrey;
     display: flex;
     padding: 2em;
 }
@@ -22,3 +26,21 @@
     height: 5em;
     width: 20em;
 }
+
+@keyframes backgroundColorPalette {
+    0% {
+      background: #4b1e1b;
+    }
+    25% {
+      background: #3d6b52;
+    }
+    50% {
+      background: #69394d;
+    }
+    75% {
+      background: #601680;
+    }
+    100% {
+      background: #5f3931;
+    }
+  }
