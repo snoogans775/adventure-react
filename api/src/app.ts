@@ -1,3 +1,14 @@
+import { Request, Response } from 'express'
+import { Router } from 'express'
+import { PrismaClient } from '@prisma/client'
+const prismaClient = new PrismaClient()
+const router = Router()
+
+// Universal routes
+router.get('/', (req: Request, res: Response): Response => {
+   return res.status(200).send('Welcome to the React Adventure API.') 
+})
+
 // Begin scene controller construction via DI
 import { SceneService } from './scene/scene.service'
 import { SceneController } from './scene/scene.controller'
@@ -16,3 +27,4 @@ router.get('/tile/:id', tileController.getTileById)
 router.post('/tile', tileController.createTile)
 router.post('/tiles', tileController.createTiles)
 
+export { router }
