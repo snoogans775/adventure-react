@@ -4,7 +4,7 @@
   "description": "API for network and local tasks required by adventure-react",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon /dist/server.ts",
+    "start": "nodemon index.ts",
     "test": "jest"
   },
   "author": "Kevin Fredericks",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@prisma/client": "^3.8.1",
     "@types/node": "^17.0.10",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "global": "^4.4.0",
     "prisma": "^3.8.1",
