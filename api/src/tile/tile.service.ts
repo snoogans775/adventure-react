@@ -1,6 +1,6 @@
 import { Prisma, Tile } from '@prisma/client'
 class TileService {
-    constructor(private prisma: any) {}
+    constructor(private prisma) {}
     async tile(TileWhereUniqueInput: Prisma.TileWhereUniqueInput): Promise<Tile | null> {
         return this.prisma.tile.findUnique({
             where: TileWhereUniqueInput

@@ -40,10 +40,12 @@ exports.TileController = void 0;
 var TileController = /** @class */ (function () {
     function TileController(tileService) {
         this.tileService = tileService;
+        this.tileService = tileService;
     }
     TileController.prototype.createTile = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                console.log(this);
                 return [2 /*return*/, this.tileService.createTile(req.body)];
             });
         });

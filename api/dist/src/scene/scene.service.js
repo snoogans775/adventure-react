@@ -62,7 +62,7 @@ var SceneService = /** @class */ (function () {
     SceneService.prototype.createScenes = function (sceneData) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.prisma.scene.createMany({
+                return [2 /*return*/, this.prisma.scene.create({
                         data: sceneData
                     })];
             });
