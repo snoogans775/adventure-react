@@ -2,7 +2,7 @@
   "name": "adventure-react",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
+  "main": "src/index.js",
   "dependencies": {
     "@babel/core": "^7.12.16",
     "@babel/preset-env": "^7.12.16",

@@ -17,6 +17,7 @@ const sceneController = new SceneController(sceneService)
 router.get('/scene/:id', sceneController.getSceneById)
 router.post('/scene', sceneController.createScene)
 router.post('/scenes', sceneController.createScenes)
+router.post('/scene/query', sceneController.query)
 
 // Begin tile controller construction via DI
 import { TileService } from './tile/tile.service'
