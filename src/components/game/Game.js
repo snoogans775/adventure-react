@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import GameContainer from './GameContainer';
 import Terminal from './Terminal';
 import tiletypes from '../../data/tiletypes';
-import velocityMap from '../../data/velocityMap';
+import vMapRaw from '../../data/velocityMap.js';
+const velocityMap = vMapRaw.default || vMapRaw;
 import { initState } from '../../utils/initState';
 
 function Tile({ x, y, onClick, type, scale}) {
@@ -68,8 +69,8 @@ function Game({ config }) {
 
   function getVelocity(position) {
     return {
-      x: velocityMap.x[position.x],
-      y: velocityMap.y[position.y]
+      x: velocityMap.x[String(position.x)],
+      y: velocityMap.y[String(position.y)]
     }
   }
 
