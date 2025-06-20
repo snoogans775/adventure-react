@@ -68,8 +68,8 @@ function Game({ config }) {
 
   function getVelocity(position) {
     return {
-      x: velocityMap.x[position.x],
-      y: velocityMap.y[position.y]
+      x: velocityMap.x[String(position.x)],
+      y: velocityMap.y[String(position.y)]
     }
   }
 
