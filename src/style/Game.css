@@ -7,6 +7,8 @@ body {
 .game-container {
     background-color: darkgrey;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 2em;
 }
 .scene {
@@ -25,6 +27,7 @@ body {
     color: #EEE;
     height: 5em;
     width: 20em;
+    margin-top: 1em;
 }
 
 @keyframes backgroundColorPalette {
