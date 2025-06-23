@@ -1,26 +1,38 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {GameStateContext} from './GameStateContext';
 
-export default function Terminal({getTileData, clickedTile, getTileState, ...props}) {
+export default function Terminal({getTileData, clickedTile, getTileState, tileMessageIndices, updateMessageIndexForTile, ...props}) {
     const [messages, setMessages] = useState([]);
 
     function getTileMessage(tile) {
-        // console.log('searching for tile data...');
         const sceneTile = getTileData({x: tile.x, y: tile.y});
-        // console.log(sceneTile);
-        // console.log('checking for state...');
         const tileState = getTileState({x: tile.x, y: tile.y});
-        console.log(tileState);
-        if(tileState != undefined) {
+
+        if (tileState && sceneTile && sceneTile.state && sceneTile.state[tileState.active]) {
             const responses = sceneTile.state[tileState.active].responses;
-            return responses[Math.floor(Math.random() * responses.length)];
-        } else {
-            return sceneTile.type;
+            if (responses && responses.length > 0) {
+                const tileKey = `${tile.x},${tile.y}`;
+                const currentIndex = tileMessageIndices[tileKey] || 0;
+
+                const message = responses[currentIndex];
+
+                let nextIndex = currentIndex;
+                if (currentIndex < responses.length - 1) {
+                    nextIndex = currentIndex + 1;
+                } else {
+                    nextIndex = responses.length - 1; // Stay at the last index
+                }
+                updateMessageIndexForTile(tileKey, nextIndex);
+
+                return message;
+            }
         }
+        // Fallback if no responses or state
+        return sceneTile ? sceneTile.type : "Unknown area";
     }
 
     useEffect( () => {
-        if(clickedTile !== undefined) {
+        if(clickedTile) {
             let nextMessage = getTileMessage(clickedTile);
             setMessages([nextMessage, ...messages]);
         }
