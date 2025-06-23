@@ -51,7 +51,15 @@ function Game({ config }) {
   const [sceneData, setSceneData] = useState(config.scene.sceneData);
   const [state, setState] = useState(initState(config.scene.sceneData));
   const [position, setPosition] = useState({ x: 1, y: 1 });
-  const [clickedTile, setClickedTile] = useState({ x: 1, y: 1 });
+  const [clickedTile, setClickedTile] = useState(null);
+  const [tileMessageIndices, setTileMessageIndices] = useState({});
+
+  const updateMessageIndexForTile = (tileKey, newIndex) => {
+      setTileMessageIndices(prevIndices => ({
+          ...prevIndices,
+          [tileKey]: newIndex
+      }));
+  };
 
   function getTileData(position) {
     const tileData = sceneData.find(tile => {
@@ -141,6 +149,8 @@ function Game({ config }) {
           clickedTile={clickedTile}
           getTileData={getTileData}
           getTileState={getTileState}
+          tileMessageIndices={tileMessageIndices}
+          updateMessageIndexForTile={updateMessageIndexForTile}
         />
       </GameContainer>
   )
