@@ -48,3 +48,21 @@ body {
       background: #5f3931;
     }
   }
+
+/* Terminal message brightness based on recency */
+.terminal ol li {
+    /* Base style for transition if desired in future, not strictly needed for opacity alone */
+    transition: opacity 0.3s ease-out;
+}
+
+.terminal ol li:first-child {
+    opacity: 0.95; /* Most recent */
+}
+
+.terminal ol li:nth-child(2) {
+    opacity: 0.75; /* Older */
+}
+
+.terminal ol li:nth-child(3) {
+    opacity: 0.55; /* Oldest visible */
+}
